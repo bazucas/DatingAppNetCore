@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DatingApp.Migrations
+namespace API.Migrations
 {
     public partial class AddedUserModel : Migration
     {
