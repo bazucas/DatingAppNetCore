@@ -1,0 +1,11 @@
+D:\WORK\Desktop\DatingApp\obj\Debug\netcoreapp2.0\DatingApp.csprojAssemblyReference.cache
+D:\WORK\Desktop\DatingApp\obj\Debug\netcoreapp2.0\DatingApp.csproj.CoreCompileInputs.cache
+D:\WORK\Desktop\DatingApp\obj\Debug\netcoreapp2.0\DatingApp.AssemblyInfoInputs.cache
+D:\WORK\Desktop\DatingApp\obj\Debug\netcoreapp2.0\DatingApp.AssemblyInfo.cs
+D:\WORK\Desktop\DatingApp\bin\Debug\netcoreapp2.0\DatingApp.deps.json
+D:\WORK\Desktop\DatingApp\bin\Debug\netcoreapp2.0\DatingApp.runtimeconfig.json
+D:\WORK\Desktop\DatingApp\bin\Debug\netcoreapp2.0\DatingApp.runtimeconfig.dev.json
+D:\WORK\Desktop\DatingApp\bin\Debug\netcoreapp2.0\DatingApp.dll
+D:\WORK\Desktop\DatingApp\bin\Debug\netcoreapp2.0\DatingApp.pdb
+D:\WORK\Desktop\DatingApp\obj\Debug\netcoreapp2.0\DatingApp.dll
+D:\WORK\Desktop\DatingApp\obj\Debug\netcoreapp2.0\DatingApp.pdb
