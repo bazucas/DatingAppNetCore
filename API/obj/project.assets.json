@@ -12668,11 +12668,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WORK\\Desktop\\DatingApp\\DatingApp.csproj",
+      "projectUniqueName": "D:\\WORK\\Desktop\\DatingApp\\API\\DatingApp.csproj",
       "projectName": "DatingApp",
-      "projectPath": "D:\\WORK\\Desktop\\DatingApp\\DatingApp.csproj",
+      "projectPath": "D:\\WORK\\Desktop\\DatingApp\\API\\DatingApp.csproj",
       "packagesPath": "C:\\Users\\luis.inacio\\.nuget\\packages\\",
-      "outputPath": "D:\\WORK\\Desktop\\DatingApp\\obj\\",
+      "outputPath": "D:\\WORK\\Desktop\\DatingApp\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
