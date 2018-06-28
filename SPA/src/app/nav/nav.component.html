@@ -16,9 +16,9 @@
           <li><a href="#">Messages</a></li>
         </ul>
 
-        <form #loginForm="ngForm" class="navbar-form navbar-right" (ngSubmit)="login()">
+        <form *ngIf="!loggedIn()" #loginForm="ngForm" class="navbar-form navbar-right" (ngSubmit)="login()">
           <div class="form-group">
-            <input type="text" placeholder="Email" class="form-control" required name="username" [(ngModel)]="model.username">
+            <input type="text" placeholder="Username" class="form-control" required name="username" [(ngModel)]="model.username">
           </div>
           <div class="form-group">
             <input type="password" placeholder="Password" class="form-control" required name="password" [(ngModel)]="model.password">
@@ -26,15 +26,15 @@
           <button type="submit" [disabled]="!loginForm.valid" class="btn btn-success">Sign in</button>
         </form>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Link</a></li>
+        <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
+          <li><a (click)="logout()">Logout</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
             aria-haspopup="true" aria-expanded="false">Welcome User <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#"><i class="fa fa-user"></i>>Edit Profile</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#"><i class="fa fa-sign-out"></i>Logout</a></li>
+              <li><a (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>
         </ul>

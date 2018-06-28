@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  model: any = [];
+  model: any = {};
 
   constructor(private authService: AuthService) { }
 
@@ -20,5 +20,16 @@ export class NavComponent implements OnInit {
     }, error => {
       console.log('Failed to login');
     });
+  }
+
+  logout() {
+    this.authService.userToken = null;
+    localStorage.removeItem('token');
+    console.log('logged out');
+  }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !!token;
   }
 }
