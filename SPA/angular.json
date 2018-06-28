@@ -25,10 +25,10 @@
             "styles": [
               "src/styles.css",
               "../SPA/node_modules/bootstrap/dist/css/bootstrap.css"
-            ],
-            "scripts": [
-              "../SPA/node_modules/bootstrap/dist/js/bootstrap.js"
-              ]
+              ],
+              "scripts": [
+                "../SPA/node_modules/bootstrap/dist/js/bootstrap.js"
+                ]
           },
           "configurations": {
             "production": {
