@@ -27,8 +27,8 @@
               "../SPA/node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "../SPA/node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "../SPA/node_modules/jquery/dist/jquery.min.js"
+              "../SPA/node_modules/jquery/dist/jquery.min.js",
+              "../SPA/node_modules/bootstrap/dist/js/bootstrap.min.js"
                 ]
           },
           "configurations": {
