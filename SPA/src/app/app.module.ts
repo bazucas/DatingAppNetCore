@@ -1,3 +1,4 @@
+import { AuthGuard } from './_guards/auth.guard';
 import { appRoutes } from './routes';
 import { AuthService } from './_services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,7 +38,8 @@ import { RouterModule } from '@angular/router';
     ],
     providers: [
        AuthService,
-       AlertifyService
+       AlertifyService,
+       AuthGuard
     ],
     bootstrap: [
        AppComponent
