@@ -2,6 +2,7 @@ import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,19 @@ constructor(private http: Http) { }
 
   register(model: any) {
     return this.http.post(this.baseUrl + 'register', model, this.requestOptions()).pipe(catchError(this.handleError));
+  }
+
+  loggedIn() {
+    const helper = new JwtHelperService();
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const decodedToken = helper.decodeToken(token);
+      const expirationDate = helper.getTokenExpirationDate(token);
+      const isExpired = helper.isTokenExpired(token);
+      return !isExpired;
+    }
+    return false;
   }
 
   private requestOptions() {
