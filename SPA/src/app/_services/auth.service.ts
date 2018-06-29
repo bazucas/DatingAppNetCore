@@ -8,14 +8,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   baseUrl = 'http://localhost:5000/api/auth/';
   userToken: any;
+  decodedToken: any;
+  jwtHelper = new JwtHelperService();
 
 constructor(private http: Http) { }
 
   login(model: any) {
     return this.http.post(this.baseUrl + 'login', model, this.requestOptions()).pipe(map((response: Response) => {
       const user = response.json();
-      if (user) {
+      if (user && user.tokenString) {
         localStorage.setItem('token', user.tokenString);
+        this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+        console.log(this.decodedToken);
         this.userToken = user.tokenString;
       }
     })).pipe(catchError(this.handleError));
@@ -26,13 +30,12 @@ constructor(private http: Http) { }
   }
 
   loggedIn() {
-    const helper = new JwtHelperService();
     const token = localStorage.getItem('token');
 
     if (token) {
-      const decodedToken = helper.decodeToken(token);
-      const expirationDate = helper.getTokenExpirationDate(token);
-      const isExpired = helper.isTokenExpired(token);
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      const expirationDate = this.jwtHelper.getTokenExpirationDate(token);
+      const isExpired = this.jwtHelper.isTokenExpired(token);
       return !isExpired;
     }
     return false;
