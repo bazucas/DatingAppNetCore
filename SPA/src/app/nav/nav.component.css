@@ -1,0 +1,7 @@
+.dropdown-menu li, .dropdown-toggle {
+    cursor: pointer;
+}
+
+input {
+    margin-right: 20px;
+}
