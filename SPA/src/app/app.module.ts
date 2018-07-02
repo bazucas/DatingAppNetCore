@@ -58,7 +58,7 @@ export function jwtOptionsFactory(tokenService) {
       config: {
         tokenGetter: () => {
           return localStorage.getItem('token'); },
-        whitelistedDomains: ['localhost:5000'] // authentication server
+        whitelistedDomains: ['localhost:4200', 'localhost:5000'] // authentication server
       }
     })
     ],
