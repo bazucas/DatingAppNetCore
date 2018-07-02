@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 export function jwtOptionsFactory(tokenService) {
   return {
@@ -47,11 +48,19 @@ export function jwtOptionsFactory(tokenService) {
    ],
    imports: [
       BrowserModule,
-      HttpModule,
       FormsModule,
+      HttpModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
-      TabsModule.forRoot()
+      TabsModule.forRoot(),
+      HttpClientModule,
+      JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token'); },
+        whitelistedDomains: ['localhost:5000'] // authentication server
+      }
+    })
     ],
     providers: [
        AuthService,
