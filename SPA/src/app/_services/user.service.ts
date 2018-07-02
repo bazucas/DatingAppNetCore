@@ -4,6 +4,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../_models/User';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -13,8 +14,7 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.http.get(this.baseUrl + 'users', this.jwt())
-    .pipe(
-      tap(console.log),
+     .pipe(
       map(response => <User[]>response.json()),
       catchError(this.handleError));
   }
