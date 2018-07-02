@@ -1,3 +1,5 @@
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { appRoutes } from './routes';
@@ -55,7 +57,9 @@ export function jwtOptionsFactory(tokenService) {
        AuthService,
        AlertifyService,
        AuthGuard,
-       UserService
+       UserService,
+       MemberDetailResolver,
+       MemberListResolver
     ],
     bootstrap: [
        AppComponent
