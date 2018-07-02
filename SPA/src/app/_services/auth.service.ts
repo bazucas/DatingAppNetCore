@@ -60,8 +60,6 @@ constructor(private http: Http) { }
         }
       }
     }
-    return throwError(
-      modelStateErrors || 'Server error'
-    );
+    return throwError(modelStateErrors || 'Server error');
   }
 }
