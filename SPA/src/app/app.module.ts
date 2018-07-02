@@ -49,7 +49,6 @@ export function jwtOptionsFactory(tokenService) {
    imports: [
       BrowserModule,
       FormsModule,
-      HttpModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       TabsModule.forRoot(),
