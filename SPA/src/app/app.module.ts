@@ -1,3 +1,4 @@
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { appRoutes } from './routes';
 import { AuthService } from './_services/auth.service';
@@ -5,8 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { BsDropdownModule } from 'ngx-bootstrap';
-import { JwtModule } from '@auth0/angular-jwt';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -22,8 +22,12 @@ import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { HttpClientModule } from '@angular/common/http';
 
-export function tokenGetter() {
-  return localStorage.getItem('token');
+export function jwtOptionsFactory(tokenService) {
+  return {
+    tokenGetter: () => {
+      return tokenService.getAsyncToken();
+    }
+  };
 }
 
 @NgModule({
@@ -36,7 +40,8 @@ export function tokenGetter() {
       MemberListComponent,
       ListsComponent,
       MessagesComponent,
-      MemberCardComponent
+      MemberCardComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -44,14 +49,7 @@ export function tokenGetter() {
       FormsModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
-      HttpClientModule,
-      JwtModule.forRoot({
-        config: {
-          tokenGetter: tokenGetter,
-          whitelistedDomains: ['localhost:4200'],
-          blacklistedRoutes: ['www']
-        }
-      })
+      TabsModule.forRoot()
     ],
     providers: [
        AuthService,
