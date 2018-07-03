@@ -3,3 +3,9 @@ img.thumbnail {
     width: 100px;
     margin-bottom: 2px;
 }
+
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+
+input[type=file] {
+    color: transparent;
+}

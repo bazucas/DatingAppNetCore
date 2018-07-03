@@ -28,6 +28,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function jwtOptionsFactory(tokenService) {
   return {
@@ -57,6 +58,7 @@ export function jwtOptionsFactory(tokenService) {
       FormsModule,
       HttpModule,
       NgxGalleryModule,
+      FileUploadModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       TabsModule.forRoot(),
