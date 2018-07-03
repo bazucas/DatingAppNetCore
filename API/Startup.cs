@@ -39,6 +39,7 @@ namespace API
             services.AddMvc().AddJsonOptions(opt => {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddTransient<Seed>();
             services.AddAutoMapper();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
