@@ -18,6 +18,13 @@ export class UserService {
       catchError(this.handleError));
   }
 
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'users/' + id, user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getUser(id): Observable<User> {
     return this.http
       .get(this.baseUrl + 'users/' + id)
