@@ -10,30 +10,21 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]> {
-    return this.http.get(this.baseUrl + 'users', this.jwt())
+    return this.http.get(this.baseUrl + 'users')
      .pipe(
-      map(response => <User[]>response.json()),
+      map(response => <User[]>response),
       catchError(this.handleError));
   }
 
   getUser(id): Observable<User> {
     return this.http
-      .get(this.baseUrl + 'users/' + id, this.jwt())
+      .get(this.baseUrl + 'users/' + id)
       .pipe(
-        map(response => <User>response.json()),
+        map(response => <User>response),
         catchError(this.handleError));
-  }
-
-  private jwt() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const headers = new Headers({'Authorization': 'Bearer ' + token});
-      headers.append('Content-type', 'application/json');
-      return new RequestOptions({headers: headers});
-    }
   }
 
   private handleError(error: any) {

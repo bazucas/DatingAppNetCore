@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
-
+import { NgxGalleryModule } from 'ngx-gallery';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 export function jwtOptionsFactory(tokenService) {
   return {
@@ -49,9 +50,18 @@ export function jwtOptionsFactory(tokenService) {
       BrowserModule,
       HttpModule,
       FormsModule,
+      NgxGalleryModule,
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
-      TabsModule.forRoot()
+      TabsModule.forRoot(),
+      HttpClientModule,
+      JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token'); },
+        whitelistedDomains: ['localhost:5000']
+      }
+    })
     ],
     providers: [
        AuthService,
