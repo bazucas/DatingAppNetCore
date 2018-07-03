@@ -1,6 +1,5 @@
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { Http, RequestOptions, Headers } from '@angular/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../_models/User';

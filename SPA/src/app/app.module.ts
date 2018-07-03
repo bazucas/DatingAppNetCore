@@ -48,7 +48,6 @@ export function jwtOptionsFactory(tokenService) {
    ],
    imports: [
       BrowserModule,
-      HttpModule,
       FormsModule,
       NgxGalleryModule,
       BsDropdownModule.forRoot(),
@@ -59,7 +58,7 @@ export function jwtOptionsFactory(tokenService) {
       config: {
         tokenGetter: () => {
           return localStorage.getItem('token'); },
-        whitelistedDomains: ['localhost:5000']
+        whitelistedDomains: ['localhost:5000'] // authentication server
       }
     })
     ],
