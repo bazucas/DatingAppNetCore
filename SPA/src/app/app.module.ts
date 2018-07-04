@@ -7,9 +7,9 @@ import { appRoutes } from './routes';
 import { AuthService } from './_services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -59,6 +59,8 @@ export function jwtOptionsFactory(tokenService) {
       HttpModule,
       NgxGalleryModule,
       FileUploadModule,
+      ReactiveFormsModule,
+      BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       TabsModule.forRoot(),

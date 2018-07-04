@@ -22,6 +22,8 @@ export class AuthService {
   }
 
   login(model: any) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
     return this.http.post(this.baseUrl + 'login', model, this.requestOptions()).pipe(map((response: Response) => {
       const user = response.json();
       if (user && user.tokenString) {
@@ -30,21 +32,22 @@ export class AuthService {
         this.currentUser = user.user;
         this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
         this.userToken = user.tokenString;
-        this.changeMemberPhoto(this.currentUser.photoUrl);
+        if (this.currentUser.photoUrl !== null) {
+          this.changeMemberPhoto(this.currentUser.photoUrl);
+        } else {
+          this.changeMemberPhoto('../../assets/user.png');
+        }
       }
     })).pipe(catchError(this.handleError));
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model, this.requestOptions()).pipe(catchError(this.handleError));
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'register', user, this.requestOptions()).pipe(catchError(this.handleError));
   }
 
   loggedIn() {
     const token = localStorage.getItem('token');
-
     if (token) {
-      const decodedToken = this.jwtHelper.decodeToken(token);
-      const expirationDate = this.jwtHelper.getTokenExpirationDate(token);
       const isExpired = this.jwtHelper.isTokenExpired(token);
       return !isExpired;
     }
