@@ -40,6 +40,13 @@ export class UserService {
       );
   }
 
+  deletePhoto(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: any) {
     const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
