@@ -58,8 +58,6 @@ export class RegisterComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       }, () => {
-        // tslint:disable-next-line:no-debugger
-        debugger;
         this.authService.login(this.user).subscribe(() => {
           this.router.navigate(['/members']);
         });
