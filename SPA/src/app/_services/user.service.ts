@@ -12,12 +12,20 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any): Observable<PaginatedResult<User[]>> {
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?: string) {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
 
     if (page != null && itemsPerPage != null) {
       queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+    }
+
+    if (likesParam === 'Likers') {
+      queryString += 'Likers=true&';
+    }
+
+    if (likesParam === 'Likees') {
+      queryString += 'Likees=true&';
     }
 
     if (userParams != null) {
@@ -69,20 +77,21 @@ export class UserService {
       );
   }
 
+  sendLike(id: number, recipientId: number) {
+    return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: any) {
+    if (error.error === typeof('undefined') && error.status === 400) {
+      return Observable.throw(error._body);
+    }
     const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
       return Observable.throw(applicationError);
     }
-    const serverError = error.json();
-    let modelStateErrors = '';
-    if (serverError) {
-      for (const key in serverError) {
-        if (serverError[key]) {
-          modelStateErrors += serverError[key] + '\n';
-        }
-      }
-    }
-    return throwError(modelStateErrors || 'Server error');
+    return throwError(error.error || 'Server error');
   }
 }

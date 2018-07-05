@@ -1,3 +1,4 @@
+import { ListsResolver } from './_resolvers/lists.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
@@ -85,7 +86,8 @@ export function jwtOptionsFactory(tokenService) {
        MemberDetailResolver,
        MemberListResolver,
        MemberEditResolver,
-       PreventUnsavedChanges
+       PreventUnsavedChanges,
+       ListsResolver
     ],
     bootstrap: [
        AppComponent
