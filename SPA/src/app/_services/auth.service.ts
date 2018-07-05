@@ -22,8 +22,6 @@ export class AuthService {
   }
 
   login(model: any) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     return this.http.post(this.baseUrl + 'login', model, this.requestOptions()).pipe(map((response: Response) => {
       const user = response.json();
       if (user && user.tokenString) {

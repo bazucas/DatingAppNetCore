@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -62,11 +62,13 @@ export function jwtOptionsFactory(tokenService) {
       NgxGalleryModule,
       FileUploadModule,
       ReactiveFormsModule,
+      PaginationModule.forRoot(),
       BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       TabsModule.forRoot(),
       HttpClientModule,
+      ButtonsModule.forRoot(),
       JwtModule.forRoot({
       config: {
         tokenGetter: () => {
