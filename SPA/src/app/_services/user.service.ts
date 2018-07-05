@@ -1,6 +1,5 @@
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { Http, RequestOptions, Headers } from '@angular/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../_models/User';
@@ -19,12 +18,33 @@ export class UserService {
       catchError(this.handleError));
   }
 
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'users/' + id, user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getUser(id): Observable<User> {
     return this.http
       .get(this.baseUrl + 'users/' + id)
       .pipe(
         map(response => <User>response),
         catchError(this.handleError));
+  }
+
+  setMainPhoto(userId: number, id: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deletePhoto(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: any) {
