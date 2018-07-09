@@ -9,17 +9,16 @@ import { User } from './_models/User';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
-  jwtHelper = new JwtHelperService();
 
-  constructor (private authService: AuthService) { }
+  constructor (private authService: AuthService,
+    private jwtHelperService: JwtHelperService) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     const user: User = JSON.parse(localStorage.getItem('user'));
 
     if (token) {
-      this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+      this.authService.decodedToken = this.jwtHelperService.decodeToken(token);
     }
 
     if (user) {

@@ -32,7 +32,7 @@ export class ListsComponent implements OnInit {
   loadUsers() {
     this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.likesParam)
       .subscribe((res: any) => {
-        this.users = res.result.body;
+        this.users = res.result;
         this.pagination = res.pagination;
       }, error => {
         this.alertify.error(error);

@@ -1,10 +1,9 @@
-import { Headers } from '@angular/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../_models/User';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { PaginatedResult } from '../_models/pagination';
 import { Message } from '../_models/message';
 
@@ -14,32 +13,35 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?: string) {
+  getUsers(page?, itemsPerPage?, userParams?: any, likesParam?: string) {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
-    let queryString = '?';
+    let params = new HttpParams();
 
     if (page != null && itemsPerPage != null) {
-      queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
     }
 
     if (likesParam === 'Likers') {
-      queryString += 'Likers=true&';
+      params = params.append('Likers', 'true');
     }
 
     if (likesParam === 'Likees') {
-      queryString += 'Likees=true&';
+      params = params.append('Likees', 'true');
     }
 
     if (userParams != null) {
-      queryString += 'minAge=' + userParams.minAge + '&maxAge=' + userParams.maxAge + '&gender=' + userParams.gender +
-        '&orderBy=' + userParams.orderBy;
+      params = params.append('minAge', userParams.minAge);
+      params = params.append('maxAge', userParams.maxAge);
+      params = params.append('gender', userParams.gender);
+      params = params.append('orderBy', userParams.orderBy);
     }
 
     return this.http
-      .get(this.baseUrl + 'users' + queryString, {observe: 'response'})
+      .get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
       .pipe(
-        map((response: any) => {
-          paginatedResult.result = response;
+        map(response => {
+          paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
             paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
@@ -85,16 +87,22 @@ export class UserService {
       );
   }
 
-  getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
-    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
-    let queryString = '?MessageContainer=' + messageContainer;
+  getMessages(id: number, page?, itemsPerPage?, messageContainer?: string) {
+    const paginatedResult: any = [];
+
+    let params = new HttpParams();
+
+    params = params.append('MessageContainer', messageContainer);
+
     if (page != null && itemsPerPage != null) {
-      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerPage;
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get(this.baseUrl + 'users/' + id + '/messages' + queryString, {observe: 'response'})
+    return this.http
+      .get<Message[]>(this.baseUrl + 'users/' + id + '/messages', {observe: 'response', params})
       .pipe(
-        map((response: any ) => {
+        map(response => {
           paginatedResult.result = response;
 
           if (response.headers.get('Pagination') != null) {
