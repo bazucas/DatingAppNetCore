@@ -1,3 +1,4 @@
+import { MessagesResolver } from './_resolvers/message.resolver';
 import { ListsResolver } from './_resolvers/lists.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
@@ -31,6 +32,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 export function jwtOptionsFactory(tokenService) {
   return {
@@ -54,7 +56,8 @@ export function jwtOptionsFactory(tokenService) {
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      MemberMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -87,7 +90,8 @@ export function jwtOptionsFactory(tokenService) {
        MemberListResolver,
        MemberEditResolver,
        PreventUnsavedChanges,
-       ListsResolver
+       ListsResolver,
+       MessagesResolver
     ],
     bootstrap: [
        AppComponent

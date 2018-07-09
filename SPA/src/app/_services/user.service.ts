@@ -1,3 +1,4 @@
+import { Headers } from '@angular/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from './../../environments/environment';
@@ -5,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../_models/User';
 import { HttpClient } from '@angular/common/http';
 import { PaginatedResult } from '../_models/pagination';
+import { Message } from '../_models/message';
 
 @Injectable()
 export class UserService {
@@ -36,8 +38,7 @@ export class UserService {
     return this.http
       .get(this.baseUrl + 'users' + queryString, {observe: 'response'})
       .pipe(
-        tap(console.log),
-        map(response => {
+        map((response: any) => {
           paginatedResult.result = response;
           if (response.headers.get('Pagination') != null) {
             paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
@@ -82,6 +83,57 @@ export class UserService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+    let queryString = '?MessageContainer=' + messageContainer;
+    if (page != null && itemsPerPage != null) {
+      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerPage;
+    }
+
+    return this.http.get(this.baseUrl + 'users/' + id + '/messages' + queryString, {observe: 'response'})
+      .pipe(
+        map((response: any ) => {
+          paginatedResult.result = response;
+
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+
+          return paginatedResult;
+        }),
+        catchError(this.handleError));
+  }
+
+  getMessageThread(id: number, recipientId: number) {
+    return this.http.get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(this.handleError));
+  }
+
+  sendMessage(id: number, message: Message) {
+    return this.http.post(this.baseUrl + 'users/' + id + '/messages', message)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  deleteMessage(id: number, userId: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  markAsRead(userId: number, messageId: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read', {}).subscribe();
   }
 
   private handleError(error: any) {
