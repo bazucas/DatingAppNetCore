@@ -14,7 +14,6 @@ import { HttpModule } from '@angular/http';
 import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AppComponent } from './app.component';
-import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -43,10 +42,12 @@ export function jwtOptionsFactory(tokenService) {
   };
 }
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 @NgModule({
    declarations: [
       AppComponent,
-      ValueComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
@@ -76,8 +77,7 @@ export function jwtOptionsFactory(tokenService) {
       ButtonsModule.forRoot(),
       JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token'); },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:5000'] // authentication server
       }
     })

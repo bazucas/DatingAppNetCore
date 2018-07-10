@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../_models/User';
 import { AlertifyService } from '../../_services/alertify.service';
 import { UserService } from '../../_services/user.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-card',
