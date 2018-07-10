@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './../_models/User';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthUser } from '../_models/authUser';
 
@@ -40,16 +40,12 @@ export class AuthService {
               this.changeMemberPhoto('../../assets/user.png');
             }
           }
-        }),
-        catchError(this.handleError));
+        }));
   }
 
   register(user: User) {
     return this.http.post(this.baseUrl + 'register', user, {headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')})
-      .pipe(
-        catchError(this.handleError)
-      );
+      .set('Content-Type', 'application/json')});
   }
 
   loggedIn() {
@@ -59,22 +55,5 @@ export class AuthService {
       return !isExpired;
     }
     return false;
-  }
-
-  private handleError(error: any) {
-    const applicationError = error.headers.get('Application-Error');
-    if (applicationError) {
-      return Observable.throw(applicationError);
-    }
-    const serverError = error.json();
-    let modelStateErrors = '';
-    if (serverError) {
-      for (const key in serverError) {
-        if (serverError[key]) {
-          modelStateErrors += serverError[key] + '\n';
-        }
-      }
-    }
-    return throwError(modelStateErrors || 'Server error');
   }
 }

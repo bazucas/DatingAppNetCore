@@ -33,6 +33,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { FileUploadModule } from 'ng2-file-upload';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 export function jwtOptionsFactory(tokenService) {
   return {
@@ -91,7 +92,8 @@ export function jwtOptionsFactory(tokenService) {
        MemberEditResolver,
        PreventUnsavedChanges,
        ListsResolver,
-       MessagesResolver
+       MessagesResolver,
+       ErrorInterceptorProvider
     ],
     bootstrap: [
        AppComponent

@@ -46,45 +46,30 @@ export class UserService {
             paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
           return paginatedResult;
-        }),
-        catchError(this.handleError)
-      );
+        }));
   }
 
   updateUser(id: number, user: User) {
-    return this.http.put(this.baseUrl + 'users/' + id, user)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.put(this.baseUrl + 'users/' + id, user);
   }
 
   getUser(id): Observable<User> {
     return this.http
       .get(this.baseUrl + 'users/' + id)
       .pipe(
-        map(response => <User>response),
-        catchError(this.handleError));
+        map(response => <User>response));
   }
 
   setMainPhoto(userId: number, id: number) {
-    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {})
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
   }
 
   deletePhoto(userId: number, id: number) {
-    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
   }
 
   sendLike(id: number, recipientId: number) {
-    return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {})
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {});
   }
 
   getMessages(id: number, page?, itemsPerPage?, messageContainer?: string) {
@@ -110,48 +95,22 @@ export class UserService {
           }
 
           return paginatedResult;
-        }),
-        catchError(this.handleError));
+        }));
   }
 
   getMessageThread(id: number, recipientId: number) {
-    return this.http.get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId)
-      .pipe(
-        map((response: any) => {
-          return response;
-        }),
-        catchError(this.handleError));
+    return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId);
   }
 
   sendMessage(id: number, message: Message) {
-    return this.http.post(this.baseUrl + 'users/' + id + '/messages', message)
-      .pipe(
-        map((response: any) => {
-          return response;
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<Message>(this.baseUrl + 'users/' + id + '/messages', message);
   }
 
   deleteMessage(id: number, userId: number) {
-    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {})
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {});
   }
 
   markAsRead(userId: number, messageId: number) {
     return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read', {}).subscribe();
-  }
-
-  private handleError(error: any) {
-    if (error.error === typeof('undefined') && error.status === 400) {
-      return Observable.throw(error._body);
-    }
-    const applicationError = error.headers.get('Application-Error');
-    if (applicationError) {
-      return Observable.throw(applicationError);
-    }
-    return throwError(error.error || 'Server error');
   }
 }
