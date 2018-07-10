@@ -127,7 +127,7 @@ namespace API
             }
 
             // reseed database if needed
-            // seeder.SeedUsers();
+            seeder.SeedUsers();
 
             // order matters
             app.UseCors("MyPolicy");
