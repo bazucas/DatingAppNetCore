@@ -22,9 +22,9 @@ export class MemberCardComponent implements OnInit {
   }
 
   sendLike(id: number) {
+    debugger;
     this.userService.sendLike(this.authService.decodedToken.nameid, id)
       .subscribe(data => {
-        console.log(data);
         this.alertify.success('You have liked: ' + this.user.knownAs);
       }, error => {
         this.alertify.error(error);

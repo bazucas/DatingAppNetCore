@@ -1,5 +1,5 @@
-import { map, catchError, tap } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../_models/User';
