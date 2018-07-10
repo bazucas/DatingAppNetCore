@@ -30,5 +30,5 @@ export const appRoutes: Routes = [
             {path: 'lists', component: ListsComponent, resolve : {users: ListsResolver}}
         ]
     },
-    {path: '**', redirectTo: 'home', pathMatch: 'full'},
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
