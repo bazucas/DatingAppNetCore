@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using API.Models;
 using Newtonsoft.Json;
 
@@ -14,7 +15,9 @@ namespace API.Data
 
         public void SeedUsers()
         {
-            // delete persisted users in db
+            if(!_context.Users.Any())
+            {
+                // delete persisted users in db
             _context.Users.RemoveRange(_context.Users);
             _context.SaveChanges();
 
@@ -36,6 +39,7 @@ namespace API.Data
             }
 
             _context.SaveChanges();
+            }
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

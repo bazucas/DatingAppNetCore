@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SPA",
+            "outputPath": "../API/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,13 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "../SPA/node_modules/font-awesome/css/font-awesome.min.css",
-              "../SPA/node_modules/alertifyjs/build/css/alertify.min.css",
-              "../SPA/node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "../SPA/node_modules/bootswatch/united/bootstrap.min.css",
-              "../SPA/node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "../SPA/node_modules/alertifyjs/build/css/themes/bootstrap.min.css"
+              "src/styles.css"
             ],
             "scripts": [
               "../SPA/node_modules/alertifyjs/build/alertify.min.js"                

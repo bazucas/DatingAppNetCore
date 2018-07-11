@@ -1,3 +1,5 @@
+import { MessagesResolver } from './_resolvers/message.resolver';
+import { ListsResolver } from './_resolvers/lists.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
@@ -9,10 +11,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AppComponent } from './app.component';
-import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,6 +31,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 export function jwtOptionsFactory(tokenService) {
   return {
@@ -39,10 +42,12 @@ export function jwtOptionsFactory(tokenService) {
   };
 }
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 @NgModule({
    declarations: [
       AppComponent,
-      ValueComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
@@ -53,7 +58,8 @@ export function jwtOptionsFactory(tokenService) {
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      MemberMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -62,15 +68,16 @@ export function jwtOptionsFactory(tokenService) {
       NgxGalleryModule,
       FileUploadModule,
       ReactiveFormsModule,
+      PaginationModule.forRoot(),
       BsDatepickerModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       TabsModule.forRoot(),
       HttpClientModule,
+      ButtonsModule.forRoot(),
       JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token'); },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:5000'] // authentication server
       }
     })
@@ -83,7 +90,10 @@ export function jwtOptionsFactory(tokenService) {
        MemberDetailResolver,
        MemberListResolver,
        MemberEditResolver,
-       PreventUnsavedChanges
+       PreventUnsavedChanges,
+       ListsResolver,
+       MessagesResolver,
+       ErrorInterceptorProvider
     ],
     bootstrap: [
        AppComponent
